@@ -8,9 +8,8 @@ import (
 
 func part1() int {
   file, err := os.Open("input.txt")
-  defer file.Close()
-
   if (err != nil) { panic(err) }
+  defer file.Close()
 
   scanner := bufio.NewScanner(file)
 
@@ -42,9 +41,8 @@ func part1() int {
 
 func part2() int {
   file, err := os.Open("input.txt")
-  defer file.Close()
-
   if (err != nil) { panic(err) }
+  defer file.Close()
 
   scanner := bufio.NewScanner(file)
 
@@ -56,20 +54,16 @@ func part2() int {
     num, err := strconv.Atoi(line[1:])
     if (err != nil) { panic(err) }
 
+    click := 1
     if (line[0] == 'L') {
-      for (num > 0) {
-        current_position -= 1
-        num -= 1
-        current_position %= 100
-        if (current_position == 0) { acc += 1 } 
-      }
-    } else {
-      for (num > 0) {
-        current_position += 1
-        num -= 1
-        current_position %= 100
-        if (current_position == 0) { acc += 1 }
-      }
+      click = -1
+    }
+
+    for (num > 0) {
+      current_position += click
+      num -= 1
+      current_position %= 100
+      if (current_position == 0) { acc += 1 } 
     }
   }
 
